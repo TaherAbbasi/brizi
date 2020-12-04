@@ -38,15 +38,13 @@ def pixel_to_steps(roi_pixel_coord, currentZoom: int):
                             roi_pixel_coord))
     
     focal_length_curr = (currentZoom / oz_factor) * focal_length_min
-    print(focal_length_curr)
+
     # current angle view of the camera in degree. Respectively, 
     # horizentally and vertically.
     angle_view_curr = tuple(57.2958 * 2 * math.atan (dim / (2 * 
                             focal_length_curr)) for dim in sensor_size)
-    print(angle_view_curr)
     pixel_to_angle_ratio = tuple( a / b for a,b in zip(image_res, 
                             angle_view_curr))
-    
     steps = tuple( int(a / b) for a,b in zip(roi_center_diff, 
                                         pixel_to_angle_ratio))
     return steps    
